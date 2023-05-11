@@ -26,6 +26,11 @@ function shuffle<T>(array: T[]) {
   return copy
 }
 
+function randomBallEmoji() {
+  const EMOJIS = ['🎱', '🏀', '⚽️', '🏈', '🥎', '🎾', '🏐', '🏉', '🥏', '🎳']
+  return shuffle(EMOJIS)[0]
+}
+
 export function RandomMarket(props: { markets: Market[] }) {
   const { markets } = props
   // Return null on first render, so that server and client renders match
@@ -47,6 +52,7 @@ export function MarketScreen(props: { market: Market }) {
 
   return (
     <div>
+      <h1 className="text-2xl mb-6 text-center">{randomBallEmoji()}ddball</h1>
       <h2 className="text-xl font-bold mb-2">{market.question}</h2>
       <p>You: {guess}%</p>
       <input

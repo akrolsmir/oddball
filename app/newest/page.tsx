@@ -9,7 +9,6 @@ export default async function Game() {
     .filter((market) => market.volume > 100)
   return (
     <div className="p-4 max-w-md mx-auto">
-      <h1 className="text-2xl mb-6 text-center">🎱ddball</h1>
       <RandomMarket markets={binaryMarkets} />
     </div>
   )
