@@ -5,7 +5,7 @@ const inter = Inter({ subsets: ['latin'] })
 const quicksand = Quicksand({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Guesserino',
+  title: 'Oddball',
   description: 'Guess the probability of events',
 }
 
