@@ -8,9 +8,8 @@ export type Market = {
   probability: number
   volume: number
 }
-
-async function getMarkets() {
-  const res = await fetch('https://manifold.markets/api/v0/markets?limit=500', {
+export async function marketsFromApi(url: string) {
+  const res = await fetch(url, {
     next: { revalidate: 60 },
   })
 
@@ -23,14 +22,17 @@ async function getMarkets() {
   return (await res.json()) as Market[]
 }
 
+const SHOWCASE_URL =
+  'https://manifold.markets/api/v0/group/by-id/i23ZaDrc8EYPf2Q2FNW4/markets'
+
 export default async function Game() {
-  const markets = await getMarkets()
+  const markets = await marketsFromApi(SHOWCASE_URL)
   const binaryMarkets = markets
     .filter((market) => market.outcomeType === 'BINARY')
     .filter((market) => market.volume > 100)
   return (
     <div className="p-4 max-w-md mx-auto">
-      {/* <h1 className="text-2xl font-bold">Markets</h1> */}
+      <h1 className="text-2xl mb-6 text-center">🎱ddball</h1>
       <RandomMarket markets={binaryMarkets} />
     </div>
   )
