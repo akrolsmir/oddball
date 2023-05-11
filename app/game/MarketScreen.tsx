@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Market } from './page'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -12,6 +12,31 @@ function clsx(...classes: string[]) {
 // Prob from 0 to 1
 function formatPercent(prob: number) {
   return (prob * 100).toFixed(0) + '%'
+}
+
+// Return a shuffled copy of the array using the Fisher-Yates shuffle algorithm
+function shuffle<T>(array: T[]) {
+  const copy = [...array]
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    const x = copy[i]
+    copy[i] = copy[j]
+    copy[j] = x
+  }
+  return copy
+}
+
+export function RandomMarket(props: { markets: Market[] }) {
+  const { markets } = props
+  // Return null on first render, so that server and client renders match
+  const [hydrated, setHydrated] = useState(false)
+  useEffect(() => {
+    setHydrated(true)
+  }, [])
+  if (!hydrated) return null
+
+  const market = shuffle(markets)[0]
+  return <MarketScreen key={market.id} market={market} />
 }
 
 export function MarketScreen(props: { market: Market }) {
