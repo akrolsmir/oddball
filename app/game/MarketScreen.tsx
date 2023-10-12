@@ -31,6 +31,20 @@ function randomBallEmoji() {
   return shuffle(EMOJIS)[0]
 }
 
+// Get the twemoji URL for a random emoji
+function twemojiFavicon() {
+  return `https://twemoji.maxcdn.com/2/svg/${randomBallEmoji().codePointAt(
+    0
+  )}.svg`
+}
+
+export const metadata = {
+  title: 'Oddball',
+  icons: {
+    favicon: twemojiFavicon(),
+  },
+}
+
 export function RandomMarket(props: { markets: Market[] }) {
   const { markets } = props
   // Return null on first render, so that server and client renders match
